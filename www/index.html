@@ -1,0 +1,715 @@
+<!-- index.html
+    Final Project
+
+    Revision History
+        Jaden Ahn, 2018.04.09 : Created
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Pet Your Plant</title>
+        <script src="js/lib/jquery-2.1.4.js"></script>
+        <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+        <script src="js/lib/jquery.validate.js"></script>
+        <link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.css">
+
+        <script src="js/camera.js"></script>
+        <script src="js/global.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/dal.js"></script>
+        <script src="js/database.js"></script>
+        <script src="js/facade.js"></script>
+        <script src="cordova.js"></script>
+        <link rel="stylesheet" href="css/myStyle.css">
+    </head>
+    <body>
+        <!--Login Page-->
+        <div data-role="page" id="loginPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>Pet Your Plant</h1>
+                </div>
+            </header>
+            <section data-role="content">
+                <div align="center">
+                    <img src="img/logo.png" height="60%" width="60%" style="max-width: 300px"/>
+                </div>
+
+                <form id="frmLogin" name="frmLogin" action="#homePage">
+                    <h1 align="center">Welcome!</h1>
+                    <label for="userId">User ID:</label>
+                    <input type="text" name="userId" id="userId" value="">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" value="" autocomplete="off">
+
+                    <button type="button" id="btnLogin" name="btnLogin" class="ui-btn-active" data-icon="action">
+                        Log in
+                    </button>
+                </form>
+                <h1 align="center">OR</h1>
+                <a href="#registerPage" data-role="button" data-icon="plus" style="background-color: #ffcc33">Register
+                    for free</a>
+                <hr>
+                <button type="button" id="btnAdminLogin" name="btnAdminLogin">
+                    Admin Login(for Demo)
+                </button>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Register Page-->
+        <div data-role="page" id="registerPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>Register for Pet Your Plant</h1>
+                </div>
+            </header>
+            <section data-role="content">
+
+                <form action="" id="frmAddUser" name="frmAddUser" data-ajax="false">
+                    <label for="addUserName">Username:</label>
+                    <input type="text" name="addUserName" id="addUserName" value=""/>
+
+                    <label for="addPassword">Password:</label>
+                    <input type="password" name="addPassword" id="addPassword" value=""/>
+
+                    <label for="addFirstName">First Name:</label>
+                    <input type="text" name="addFirstName" id="addFirstName" value="">
+
+                    <label for="addLastName">Last Name:</label>
+                    <input type="text" name="addLastName" id="addLastName" value="">
+                    </input>
+
+                    <label for="addEmail">Email:</label>
+                    <input type="text" name="addEmail" id="addEmail" value=""/>
+
+                    <label for="addAddress">Address:</label>
+                    <input type="text" name="addAddress" id="addAddress" value=""/>
+
+                    <label for="addPhoneNumber">Phone Number:</label>
+                    <input type="text" name="addPhoneNumber" id="addPhoneNumber" value=""/>
+
+                    <button type="button" id="btnAddUser" name="btnAddUser" class="ui-btn-active" data-icon="plus">
+                        Save
+                    </button>
+                    <button type="reset" style="background-color: #ffcc33" data-icon="refresh">Reset
+                    </button>
+                    <a href="#homePage" data-rel="back" data-role="button" id="btnBack" name="btnBack" data-icon="back">Back</a>
+                </form>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Home Page-->
+        <div data-role="page" id="homePage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>Pet Your Plant</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home" class="ui-btn-active ui-state-persist">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart">My Plants</a></li>
+                        <li><a href="#schedulePage" data-icon="clock">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <div align="center"><h1>Welcome, <span id="summaryPageUserName"></span></h1></div>
+                <div align="center">
+                    <img src="img/logo.png" height="60%" width="60%" style="max-width: 200px"/>
+                </div>
+                <div align="center">
+                    <h1>Briefing Today: <span id="briefingDate"></span></h1>
+                </div>
+                <h3>Today's gardening suggestion</h3>
+                <div id="suggestion">
+                </div>
+
+                <h3>Your Notifications</h3>
+                <div id="scheduleSummary">
+                    <ul data-role="listview" class="ui-listview-inset"
+                        data-icon="false" id="lvNotifications" name="lvNotifications">
+                    </ul>
+                </div>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Plant List Page-->
+        <div data-role="page" id="plantPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>My Plants</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart" class="ui-btn-active ui-state-persist">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <ul id="plantListview" name="plantListview" data-role="listview" class="ui-listview-inset"
+                    data-icon="false" data-filter="true" data-filter-placeholder="Search plants...">
+                </ul>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Add Plant Page-->
+        <div data-role="page" id="addPlantPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>My Plants</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart" class="ui-btn-active ui-state-persist">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+
+                <form action="" id="frmAddPlant" name="frmAddPlant" data-ajax="false">
+                    <label for="addPlantName">Name:</label>
+                    <input type="text" name="addPlantName" id="addPlantName" value=""/>
+
+                    <label for="btnCapturePhoto">Photo:</label>
+                    <img id="profileImg" src="img/defaultImg.png" width="128px" height="128px" alt="Plant photo">
+                    <button type="button" id="btnCapturePhoto" name="btnCapturePhoto" data-icon="camera"
+                            data-iconpos="left" data-inline="false" class="ui-btn-active">Take Picture
+                    </button>
+
+                    <label for="addPlantTypeCombo">Type:</label>
+                    <select name="addPlantTypeCombo" id="addPlantTypeCombo">
+                    </select>
+
+                    <label for="addPlantDate">Plant Date:</label>
+                    <input type="date" name="addPlantDate" id="addPlantDate" value=""/>
+
+                    <label for="addPlantDeathCheck">Passed away</label>
+                    <input type="checkbox" name="addPlantDeathCheck" id="addPlantDeathCheck" value=""/>
+
+                    <div id="addPlantDeathDateDetail">
+                        <label for="addPlantDeathDate">Death Date:</label>
+                        <input type="date" name="addPlantDeathDate" id="addPlantDeathDate" value=""/>
+                    </div>
+
+                    <label for="addPlantMotherName">Mother:</label>
+                    <a href="#addPlantSearchMotherPage" data-role="button" data-rel="dialog" data-icon="search">Search Mother Plant</a>
+                    <input type="hidden" id="addPlantMotherId" name="addPlantMotherId" readonly="readonly">
+                    <input type="text" id="addPlantMotherName" name="addPlantMotherName" readonly="readonly" value="">
+
+                    <label for="addPlantDesc">Description:</label>
+                    <textarea name="addPlantDesc" id="addPlantDesc"></textarea><br>
+                    <button type="button" id="btnAddPlant" name="btnAddPlant" class="ui-btn-active" data-icon="plus">
+                        Save
+                    </button>
+                    <button type="reset" style="background-color: #ffcc33" data-icon="refresh">Reset
+                    </button>
+                    <a href="#" data-rel="back" data-role="button" data-icon="back">Back</a>
+                </form>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Show Plant Page-->
+        <div data-role="page" id="showPlantPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>My Plants</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart" class="ui-btn-active ui-state-persist">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <div align="center">
+                    <h1 id="showPlantName"></h1>
+                    (<span id="showPlantDate"></span> ~ <span id="showPlantDeathDate"></span>)
+                    <br><br>
+                    <img id="showPlantProfileImg" name="showPlantProfileImg" src="" width="128px" height="128px"
+                         alt="Plant Profile Photo">
+                </div>
+                <br>
+                <div><b>Type |</b> <span id="showPlantType"></span></div>
+                <br>
+                <div><b>Mother |</b> <span id="showPlantMother"></span></div>
+                <br>
+                <div><b>Bio</b></div>
+                <div style="text-indent: 10px;">
+                    <span id="showPlantDesc"></span>
+                </div>
+                <br>
+
+                <button data-role="button" id="btnEditPlant" name="btnEditPlant" class="ui-btn-active" data-icon="edit">Edit</button>
+                <button data-role="button" id="btnDeletePlant" name="btnDeletePlant" data-theme="b" data-icon="delete">
+                    Delete
+                </button>
+                <a href="#" data-rel="back" data-role="button" data-icon="back">Back</a>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Edit Plant Page-->
+        <div data-role="page" id="editPlantPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>My Plants</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart" class="ui-btn-active ui-state-persist">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <form action="" id="frmEditPlant" name="frmEditPlant" data-ajax="false">
+                    <label for="editPlantName">Name:</label>
+                    <input type="text" name="editPlantName" id="editPlantName" value="Sansa&Arya"/>
+                    <label for="profileImgEdit">Photo:</label>
+                    <img id="profileImgEdit" src="" width="128px" height="128px" alt="Plant photo">
+                    <button type="button" id="btnCapturePhotoEdit" name="btnCapturePhotoEdit" data-icon="camera"
+                            data-iconpos="left" data-inline="false" class="ui-btn-active">Take Picture
+                    </button>
+
+
+                    <label for="editPlantTypeCombo">Type:</label>
+                    <select name="editPlantTypeCombo" id="editPlantTypeCombo">
+                    </select>
+
+                    <label for="editPlantDate">Plant Date:</label>
+                    <input type="date" name="editPlantDate" id="editPlantDate" value="2016-01-05"/>
+
+                    <label for="editPlantDeathCheck">Passed away</label>
+                    <input type="checkbox" name="editPlantDeathCheck" id="editPlantDeathCheck" value=""/>
+
+                    <div id="editPlantDeathDateDetail">
+                        <label for="editPlantDeathDate">Death Date:</label>
+                        <input type="date" name="editPlantDeathDate" id="editPlantDeathDate" value=""/>
+                    </div>
+
+                    <label for="editPlantMotherName">Mother:</label>
+                    <a href="#editPlantSearchMotherPage" data-role="button" data-rel="dialog" data-icon="search">Search Mother Plant</a>
+                    <input type="hidden" id="editPlantMotherId" name="editPlantMotherId">
+                    <input type="text" id="editPlantMotherName" name="editPlantMotherName" readonly="readonly" value="">
+
+                    <label for="editPlantDesc">Description:</label>
+                    <textarea name="editPlantDesc"
+                              id="editPlantDesc">Lovely sisters who lost their parents</textarea><br>
+                    <button type="button" id="btnUpdatePlant" name="btnUpdatePlant" class="ui-btn-active" data-icon="plus">
+                        Update
+                    </button>
+                    <a href="#" data-rel="back" data-role="button" data-icon="back">Back</a>
+                </form>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Add Plant Search Mother page-->
+        <div data-role="page" id="addPlantSearchMotherPage">
+            <header data-role="header">
+                <h1>Select mother</h1>
+            </header>
+            <section data-role="content">
+                <ul id="addPlantSearchMotherListview" name="addPlantSearchMotherListview" data-role="listview"
+                    class="ui-listview-inset" data-icon="false" data-filter="true"
+                    data-filter-placeholder="Search plants...">
+                </ul>
+            </section>
+        </div>
+
+
+        <!--Edit Plant Search Mother page-->
+        <div data-role="page" id="editPlantSearchMotherPage">
+            <header data-role="header">
+                <h1>Select mother</h1>
+            </header>
+            <section data-role="content">
+                <ul id="editPlantSearchMotherListview" name="editPlantSearchMotherListview" data-role="listview"
+                    class="ui-listview-inset" data-icon="false" data-filter="true"
+                    data-filter-placeholder="Search plants...">
+                </ul>
+            </section>
+        </div>
+
+
+        <!--Schedule List Page-->
+        <div data-role="page" id="schedulePage">
+            <header data-role="header" data-position="fixed">
+                <!--Separated the header bar to apply data-theme only to this bar-->
+                <div data-role="header" data-theme="b">
+                    <h1>Schedule</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock"
+                               class="ui-btn-active ui-state-persist">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <ul id="scheduleListview" name="scheduleListview" data-role="listview" class="ui-listview-inset"
+                    data-icon="false" data-filter="true" data-filter-placeholder="Search plants...">
+                </ul>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Show Schedule Page-->
+        <div data-role="page" id="showSchedulePage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>My Plants</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock"
+                               class="ui-btn-active ui-state-persist">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <div align="center"><h1><span id="showScheduleName"></span> for <span
+                        id="showSchedulePlantName"></span></h1></div>
+                <div align="center"><b><span id="showStartDateTime"></span></b></div>
+                <br>
+                <div align="center" id="showSchedulePlantProfileImg"></div>
+
+                <div style="text-indent: 10px;">
+                    <span id="showScheduleDesc"></span>
+                </div>
+                <br>
+
+                <button data-role="button" id="btnEditSchedule" name="btnEditSchedule" class="ui-btn-active" data-icon="edit">Edit
+                </button>
+                <button data-role="button" id="btnDeleteSchedule" name="btnDeleteSchedule"
+                        data-theme="b" data-icon="delete">Delete
+                </button>
+                <a href="#" data-rel="back" data-role="button" data-icon="back">Back</a>
+
+
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Add Schedule Page-->
+        <div data-role="page" id="addSchedulePage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>Schedule</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock"
+                               class="ui-btn-active ui-state-persist">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+
+                <form action="" id="frmAddSchedule" name="frmAddSchedule" data-ajax="false">
+                    <label for="addScheduleName">Name:</label>
+                    <input type="text" name="addScheduleName" id="addScheduleName" value=""/>
+
+                    <label for="addSchedulePlantName">Plant:</label>
+                    <a href="#addScheduleSearchPlantPage" data-role="button" data-rel="dialog" data-icon="search">Search plants</a>
+                    <input type="hidden" id="addSchedulePlantId" name="addSchedulePlantId">
+                    <input type="text" id="addSchedulePlantName" name="addSchedulePlantName" readonly="readonly"
+                           value="">
+
+                    <label for="addStartDateTime">Start Date&Time:</label>
+                    <input type="datetime-local" name="addStartDateTime" id="addStartDateTime" value=""/>
+                    <label for="addEndDateTime">End Date&Time:</label>
+                    <input type="datetime-local" name="addEndDateTime" id="addEndDateTime" value=""/>
+
+                    <label for="addScheduleDesc">Description:</label>
+                    <textarea name="addScheduleDesc" id="addScheduleDesc"></textarea><br>
+                    <button type="button" id="btnAddSchedule" name="btnAddSchedule" class="ui-btn-active" data-icon="plus">
+                        Save
+                    </button>
+                    <button type="reset" style="background-color: #ffcc33" data-icon="refresh">Reset
+                    </button>
+                    <a href="#" data-rel="back" data-role="button" data-icon="back">Back</a>
+                </form>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Edit Schedule Page-->
+        <div data-role="page" id="editSchedulePage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>Schedule</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock"
+                               class="ui-btn-active ui-state-persist">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+
+                <form action="" id="frmEditSchedule" name="frmAddSchedule" data-ajax="false">
+                    <label for="editScheduleName">Name:</label>
+                    <input type="text" name="editScheduleName" id="editScheduleName" value=""/>
+
+                    <label for="editSchedulePlantName">Plant:</label>
+                    <a href="#editScheduleSearchPlantPage" data-role="button" data-rel="dialog" data-icon="search">Search plants</a>
+                    <input type="hidden" id="editSchedulePlantId" name="editSchedulePlantId">
+                    <input type="text" id="editSchedulePlantName" name="editSchedulePlantName" readonly="readonly"
+                           value="">
+
+                    <label for="editStartDateTime">Start Date&Time:</label>
+                    <input type="datetime-local" name="editStartDateTime" id="editStartDateTime" value=""/>
+                    <label for="editEndDateTime">End Date&Time:</label>
+                    <input type="datetime-local" name="editEndDateTime" id="editEndDateTime" value=""/>
+
+                    <label for="editScheduleDesc">Description:</label>
+                    <textarea name="editScheduleDesc" id="editScheduleDesc"></textarea><br>
+                    <button type="button" id="btnUpdateSchedule" name="btnUpdateSchedule" class="ui-btn-active" data-icon="plus">Update
+                    </button>
+                    <a href="#" data-rel="back" data-role="button" data-icon="back">Back</a>
+                </form>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+
+        <!--Add Schedule Search Plant page-->
+        <div data-role="page" id="addScheduleSearchPlantPage">
+            <header data-role="header">
+                <h1>Select plant</h1>
+            </header>
+            <section data-role="content">
+                <ul id="addScheduleSearchPlantListview" name="addScheduleSearchPlantListview" data-role="listview"
+                    class="ui-listview-inset" data-icon="false" data-filter="true"
+                    data-filter-placeholder="Search plants...">
+                </ul>
+            </section>
+        </div>
+
+
+        <!--Edit Schedule Search Plant page-->
+        <div data-role="page" id="editScheduleSearchPlantPage">
+            <header data-role="header">
+                <h1>Select plant</h1>
+            </header>
+            <section data-role="content">
+                <ul id="editScheduleSearchPlantListview" name="editScheduleSearchPlantListview" data-role="listview"
+                    class="ui-listview-inset" data-icon="false" data-filter="true"
+                    data-filter-placeholder="Search plants...">
+                </ul>
+            </section>
+        </div>
+
+
+        <!--Settings Page-->
+        <div data-role="page" id="settingsPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>Settings</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear" class="ui-btn-active ui-state-persist">Settings</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <a href="#" data-role="button" data-icon="power" id="btnLogout" name="btnLogout" data-theme="b">Log
+                    Out</a>
+                <a href="#accountSettingsPage" data-role="button" data-icon="user" id="showAccountSettings"
+                   name="showAccountSettings">Account setting</a>
+                <a href="#aboutPage" data-role="button" data-rel="dialog" data-icon="info"
+                   class="ui-btn-active">About</a>
+                <hr>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+
+        <!--About Page-->
+        <div data-role="page" id="aboutPage">
+            <header data-role="header">
+                <h1>About</h1>
+            </header>
+            <section data-role="content">
+                <div align="center">
+                    <img src="img/logo.png" width="100"/>
+                    <h1>Pet Your Plant</h1>
+                    <h3>PROG3180 Mobile Application</h3>
+                    <h3> - Final Project - </h3>
+                </div>
+                <p>Please feel free to contact us if you have any suggestions!</p>
+                <ul data-role="listview" class="ui-listview-inset" data-icon="false">
+                    <li>
+                        <a href="mailto:adelong7545@conestogac.on.ca" data-role="button" data-icon="mail"
+                           data-iconpos="right">
+                            <img src="img/profile_aubrey.png" height="128" width="128"/>
+                            <h3>Aubrey Delong</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:jahn2488@conestogac.on.ca" data-role="button" data-icon="mail"
+                           data-iconpos="right">
+                            <img src="img/profile_jaden.png" height="128" width="128"/>
+                            <h3>Jaden Ahn</h3>
+                        </a>
+                    </li>
+                </ul>
+                <div id="copyrightNotice">
+                    <p>&copy; 2018 Created by Jaden Ahn & Aubrey Delong</p>
+                    <p>All Images On This Website Are The Copyrighted Property Of Their Respective Owners And May Not Be
+                        Used Without Express Permission From The Owner.</p>
+                </div>
+            </section>
+        </div>
+
+
+        <!--Account Settings Page-->
+        <div data-role="page" id="accountSettingsPage">
+            <header data-role="header" data-position="fixed">
+                <div data-role="header" data-theme="b">
+                    <h1>Account Setting</h1>
+                </div>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#homePage" data-icon="home">Home</a></li>
+                        <li><a href="#plantPage" data-icon="heart">My Plants</a>
+                        </li>
+                        <li><a href="#schedulePage" data-icon="clock">Schedules</a></li>
+                        <li><a href="#settingsPage" data-icon="gear" class="ui-btn-active ui-state-persist">Settings</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+
+                <form action="" id="frmUpdateUser" name="frmAddUser" data-ajax="false">
+                    <div align="center"><h1><span id="updateUserName"></span></h1></div>
+                    <label for="updatePassword">Password:</label>
+                    <input type="password" name="updatePassword" id="updatePassword" value=""/>
+
+                    <label for="addFirstName">First Name:</label>
+                    <input type="text" name="updateFirstName" id="updateFirstName" value="">
+
+                    <label for="addLastName">Last Name:</label>
+                    <input type="text" name="updateLastName" id="updateLastName" value="">
+                    </input>
+
+                    <label for="addEmail">Email:</label>
+                    <input type="text" name="updateEmail" id="updateEmail" value=""/>
+
+                    <label for="addAddress">Address:</label>
+                    <input type="text" name="updateAddress" id="updateAddress" value=""/>
+
+                    <label for="addPhoneNumber">Phone Number:</label>
+                    <input type="text" name="updatePhoneNumber" id="updatePhoneNumber" value=""/>
+
+                    <button type="button" id="btnUpdateUser" name="btnUpdateUser" class="ui-btn-active" data-icon="plus">
+                        Save
+                    </button>
+                    <button data-role="button" id="btnDeleteUser" name="btnDeleteUser" data-theme="b" data-icon="delete">
+                        Delete
+                    </button>
+                    <button type="reset" style="background-color: #ffcc33" data-icon="refresh">Reset
+                    </button>
+                    <a href="#settingsPage" data-rel="back" data-role="button" data-icon="back">Back</a>
+                </form>
+            </section>
+
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4> &copy; 2018 Created by Jaden & Aubrey</h4>
+            </footer>
+        </div>
+    </body>
+</html>
